@@ -6,10 +6,10 @@ const memory = {
 }
 
 const calculate = {
-    'X': (x, y) => { return x * y },
-    '/': (x, y) => { return x / y },
-    '+': (x, y) => { return x + y },
-    '-': (x, y) => { return x - y }
+    'X': (x, y) => { return (x * y).toString().substring(0,9) },
+    '/': (x, y) => { return (x / y).toString().substring(0,9) },
+    '+': (x, y) => { return (x + y).toString().substring(0,9) },
+    '-': (x, y) => { return (x - y).toString().substring(0,9) }
 }
 
 const num = /^\d+$/
@@ -19,16 +19,24 @@ const operand = (state = memory, action) => {
     const equals = action.operator === "="
     const loadedOperator = state.operator !== ""
     const full = loadedOperator && state.stack !== ""
+    // console.log("-------------------------")
+    // console.log(JSON.stringify(state))
+    // console.log("value " + action?.value)
+    // console.log("includes . : " + state?.display?.includes("."))
+    // console.log("num.test(state.last) || action.value === : " + (num.test(state.last) || action.value === "."))
+    // console.log("num.test(action.value) || action.value === : " + (num.test(action.value) || action.value === "."))
     switch(action.type) {
         case 'ADD_VALUE':
             return {
                 display: empty
                     ? action.value
-                    : !num.test(state.last)
-                        ? action.value
-                        : state.display + action.value,
+                    : (num.test(state.last) || state.last === ".")
+                        ? (num.test(action.value) || action.value === ".")
+                            ? state.display + action.value
+                            : state.display
+                        : action.value,
                 operator: loadedOperator ? state.operator : "",
-                stack: state.last === "="
+                stack: state.last === "=" || state.last === "."
                     ? state.stack
                     : state.display,
                 last: action.value
@@ -37,16 +45,16 @@ const operand = (state = memory, action) => {
             return {
                 display:  equals
                     ? loadedOperator
-                        ? calculate[state.operator](parseInt(state.stack), parseInt(state.display))
+                        ? calculate[state.operator](parseFloat(state.stack), parseFloat(state.display))
                         : state.display
                     : full
-                        ? calculate[state.operator](parseInt(state.stack), parseInt(state.display))
+                        ? calculate[state.operator](parseFloat(state.stack), parseFloat(state.display))
                         : state.display,
                 operator: equals ? state.operator : action.operator,
                 stack: state.last === "=" 
                     ? state.stack
                     : full
-                        ? calculate[state.operator](parseInt(state.stack), parseInt(state.display))
+                        ? calculate[state.operator](parseFloat(state.stack), parseFloat(state.display))
                         : state.display,
                 last: action.operator
             }

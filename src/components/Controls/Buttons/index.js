@@ -8,7 +8,7 @@ function Buttons({value, customClass}){
     const handleClick = (value) => {
         if (value === "AC") {
             dispatch(clear())
-        } else if (num.test(value)) {
+        } else if (num.test(value) || value === ".") {
             dispatch(addValue(value))
         } else {
             dispatch(calculateOperant(value))
