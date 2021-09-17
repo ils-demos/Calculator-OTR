@@ -2,12 +2,12 @@
 
 
 # Calculations
-## basic calculations
+### basic calculations
 x * y = ans
 x / y = ans
 x + y = ans
 x - y = ans
 
-## chained calculations
+### chained calculations
 x * y / z + w - z = ans
 
