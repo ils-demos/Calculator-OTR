@@ -1,0 +1,34 @@
+.bg-gray {
+  background: #696969;
+}
+
+.bg-wine {
+  background: #8C0000;
+}
+
+.bg-orange {
+  background: #FF8C00;
+}
+
+.bg-gray-transparent {
+  background: #6d603f;
+}
+
+.bg-grad-white-gold {
+  background: linear-gradient(90deg, white 0%, #daac38 100%);
+}
+
+.flex-1 {
+  flex: calc(100%/4);
+}
+
+.flex-2 {
+  flex: calc(100%/2);
+}
+
+.fill {
+  height: 100vh;
+  width: 100vw;
+}
+
+/*# sourceMappingURL=style.css.map */
