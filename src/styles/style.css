@@ -26,6 +26,11 @@
   flex: calc(100%/2);
 }
 
+html,
+body {
+  overflow: hidden;
+}
+
 .fill {
   height: 100vh;
   width: 100vw;
